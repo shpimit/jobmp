@@ -1,0 +1,38 @@
+import type { NextPage } from 'next';
+import { Button, Form } from 'semantic-ui-react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+
+const Login: NextPage = () => {
+    const router = useRouter();
+
+    function login() {
+        axios.post('api/login').then(res => {
+            if (res.status === 200) {
+                //로그인 성공
+                router.push('/profile');
+            }
+        });
+    }
+
+    return (
+        <div style={{ padding: '100px 0', textAlign: 'center' }}>
+            <h1>Welcome to IT Playground</h1>
+            <br />
+            <Form>
+                <Form.Field inline>
+                    <input placeholder="ID" />
+                </Form.Field>
+                <Form.Field inline>
+                    <input type="password" placeholder="Password" />
+                </Form.Field>
+                <br />
+                <Button color="blue" onClick={login}>
+                    Login
+                </Button>
+            </Form>
+        </div>
+    );
+};
+
+export default Login;
